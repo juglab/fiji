@@ -10,10 +10,10 @@
 	</parent>
 
 	<groupId>sc.fiji</groupId>
-	<artifactId>fiji</artifactId>
+	<artifactId>fiji-including-resources</artifactId>
 	<version>2.0.0-SNAPSHOT</version>
 
-	<name>Fiji</name>
+	<name>Fiji including resources</name>
 	<description>Fiji is a distribution of ImageJ for the life sciences.</description>
 	<url>http://fiji.sc/</url>
 	<inceptionYear>2007</inceptionYear>
@@ -172,8 +172,6 @@
 		<license.copyrightOwners>Fiji developers.</license.copyrightOwners>
 		<license.projectName>Fiji distribution of ImageJ for the life sciences.</license.projectName>
 
-		<!-- NB: Deploy releases to the SciJava Maven repository. -->
-		<releaseProfiles>deploy-to-scijava</releaseProfiles>
 	</properties>
 
 	<repositories>
@@ -181,7 +179,19 @@
 			<id>scijava.public</id>
 			<url>https://maven.scijava.org/content/groups/public</url>
 		</repository>
+		<repository>
+			<id>test-maven</id>
+			<url>https://dais-maven.mpi-cbg.de/repository/test-maven/</url>
+		</repository>
 	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>test-maven</id>
+			<name>DAIS Maven test repository</name>
+			<url>https://dais-maven.mpi-cbg.de/repository/test-maven/</url>
+		</repository>
+	</distributionManagement>
 
 	<dependencies>
 		<!-- Fiji Is Just ImageJ! -->
@@ -881,4 +891,42 @@
 			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.1.0</version>
+			</plugin>
+		</plugins>
+		<resources>
+			<resource>
+				<directory>luts</directory>
+				<targetPath>Fiji.app/luts</targetPath>
+			</resource>
+			<resource>
+				<directory>macros</directory>
+				<targetPath>Fiji.app/macros</targetPath>
+			</resource>
+			<resource>
+				<directory>Contents</directory>
+				<targetPath>Fiji.app/Contents</targetPath>
+			</resource>
+			<resource>
+				<directory>images</directory>
+				<targetPath>Fiji.app/images</targetPath>
+			</resource>
+			<resource>
+				<directory>plugins</directory>
+				<targetPath>Fiji.app/plugins</targetPath>
+			</resource>
+			<resource>
+				<directory>resources</directory>
+				<targetPath>Fiji.app/resources</targetPath>
+			</resource>
+			<resource>
+				<directory>scripts</directory>
+				<targetPath>Fiji.app/scripts</targetPath>
+			</resource>
+		</resources>
+	</build>
 </project>
